@@ -1,0 +1,21 @@
+全栈 AI 开发笔记
+
+## 大语言模型
+大语言模型（LLM）如 GPT-4、DeepSeek 等，基于 Transformer 架构，
+通过海量文本训练获得强大的语言理解和生成能力。
+
+## Function Calling
+Function Calling 允许 LLM 调用外部工具和 API，扩展其能力边界。
+LLM 根据用户意图自动选择调用哪些工具，并生成结构化的参数。
+
+## RAG
+检索增强生成（Retrieval-Augmented Generation）结合了信息检索和文本生成。
+先从知识库中检索相关文档片段，再让 LLM 基于检索结果生成回答，减少幻觉。
+
+## MCP
+Model Context Protocol 是 Anthropic 提出的开放协议，标准化了 AI 应用
+与外部工具/数据源之间的通信方式。MCP 支持 stdio 和 HTTP SSE 两种传输模式。
+
+## Agent
+AI Agent 是能够自主规划、调用工具、多步推理的智能体。
+LangChain4j 通过 AiServices + @Tool 提供了简洁的 Agent 构建方式。
