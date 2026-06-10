@@ -7,8 +7,7 @@ public class CalculatorSkill {
     @Tool("执行数学计算，支持加减乘除和 sqrt 开方，例如: 38*47+sqrt(256)")
     public String calculator(String expression) {
         try {
-            String processed = expression.replace("sqrt(", "Math.sqrt(");
-            double result = eval(processed);
+            double result = eval(expression);
             if (result == Math.floor(result) && !Double.isInfinite(result)) {
                 return String.valueOf((long) result);
             }
@@ -39,7 +38,13 @@ public class CalculatorSkill {
                 double x; int startPos = this.pos;
                 if (eat('(')) { x = parseExpression(); eat(')'); }
                 else if ((ch >= '0' && ch <= '9') || ch == '.') { while ((ch >= '0' && ch <= '9') || ch == '.') nextChar(); x = Double.parseDouble(expr.substring(startPos, this.pos)); }
-                else if (ch >= 'a' && ch <= 'z') { while (ch >= 'a' && ch <= 'z') nextChar(); String func = expr.substring(startPos, this.pos); if (func.equals("Math.sqrt")) { eat('('); x = Math.sqrt(parseExpression()); eat(')'); } else throw new RuntimeException("Unknown: " + func); }
+                else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+                    while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '.') nextChar();
+                    String func = expr.substring(startPos, this.pos);
+                    if (func.equalsIgnoreCase("sqrt") || func.equalsIgnoreCase("Math.sqrt")) {
+                        eat('('); x = Math.sqrt(parseExpression()); eat(')');
+                    } else throw new RuntimeException("Unknown: " + func);
+                }
                 else throw new RuntimeException("Unexpected: " + (char)ch);
                 if (eat('^')) x = Math.pow(x, parseFactor());
                 return x;
