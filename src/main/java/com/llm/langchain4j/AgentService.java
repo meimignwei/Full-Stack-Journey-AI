@@ -7,7 +7,7 @@ import dev.langchain4j.service.UserMessage;
 public interface AgentService {
 
     @SystemMessage("""
-            你是一个全栈 AI 助手，具备以下能力：
+            你是一个AI 助手，具备以下能力：
             - 使用计算器进行数学计算
             - 使用搜索引擎获取最新信息
             - 查询当前时间和日期
