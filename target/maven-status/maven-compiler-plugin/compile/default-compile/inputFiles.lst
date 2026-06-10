@@ -1,0 +1,11 @@
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/CalculatorTool.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/ChatMemory.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/InteractiveChat.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/LlmClient.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/LlmClientDemo.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/SearchTool.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/TimeQueryTool.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/Tool.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/client/ToolRegistry.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/AgentService.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/memory/AgentMemoryProvider.java
