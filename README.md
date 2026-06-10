@@ -1,11 +1,11 @@
-# Full-Stack-Journey-AI
+# gradual-evolution-agent
 
 全栈 AI 学习项目，从零开始构建 LLM 客户端，逐步演进到 LangChain4j Agent 框架。
 
 ## 项目概览
 
 ```
-full-stack-journey-ai/
+gradual-evolution-agent/
 ├── knowledge/                          # RAG 知识库（.txt/.md 文件）
 │   └── fullstack-ai-notes.txt
 ├── doc/                                # 设计文档与实现计划
@@ -66,7 +66,8 @@ full-stack-journey-ai/
 
 - JDK 17+
 - Maven 3.6+
-- DeepSeek API Key（[获取地址](https://platform.deepseek.com)）
+- DeepSeek API Key（[获取地址](
+- https://platform.deepseek.com)）
 
 ### 运行 LangChain4j Agent
 

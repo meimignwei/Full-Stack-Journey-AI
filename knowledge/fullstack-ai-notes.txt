@@ -20,7 +20,7 @@ Model Context Protocol 是 Anthropic 提出的开放协议，标准化了 AI 应
 AI Agent 是能够自主规划、调用工具、多步推理的智能体。
 LangChain4j 通过 AiServices + @Tool 提供了简洁的 Agent 构建方式。
 
-## Full-Stack-Journey-AI 项目架构
+## gradual-evolution-agent 项目架构
 本项目是一个全栈 AI 学习项目，同时包含两套 LLM 客户端实现：
 1. com.llm.client 包：纯 JDK 11 原生实现，零依赖，手动 HTTP 调用、JSON 解析、SSE 流式处理。
 2. com.llm.langchain4j 包：基于 LangChain4j 框架的 Agent 实现，支持 Tool Calling、Memory、RAG、MCP。
