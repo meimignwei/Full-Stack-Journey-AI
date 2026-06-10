@@ -5,6 +5,7 @@ import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
 import dev.langchain4j.data.document.parser.TextDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 
@@ -15,10 +16,12 @@ public class KnowledgeBaseInitializer {
 
     private final String knowledgeDir;
     private final RagRetriever retriever;
+    private final EmbeddingModel embeddingModel;
 
-    public KnowledgeBaseInitializer(String knowledgeDir, RagRetriever retriever) {
+    public KnowledgeBaseInitializer(String knowledgeDir, RagRetriever retriever, EmbeddingModel embeddingModel) {
         this.knowledgeDir = knowledgeDir;
         this.retriever = retriever;
+        this.embeddingModel = embeddingModel;
     }
 
     public int initialize() {
@@ -42,6 +45,7 @@ public class KnowledgeBaseInitializer {
         EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                 .documentSplitter(DocumentSplitters.recursive(500, 50))
                 .embeddingStore(store)
+                .embeddingModel(embeddingModel)
                 .build();
 
         ingestor.ingest(documents);

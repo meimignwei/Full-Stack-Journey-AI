@@ -19,3 +19,70 @@ Model Context Protocol 是 Anthropic 提出的开放协议，标准化了 AI 应
 ## Agent
 AI Agent 是能够自主规划、调用工具、多步推理的智能体。
 LangChain4j 通过 AiServices + @Tool 提供了简洁的 Agent 构建方式。
+
+## Full-Stack-Journey-AI 项目架构
+本项目是一个全栈 AI 学习项目，同时包含两套 LLM 客户端实现：
+1. com.llm.client 包：纯 JDK 11 原生实现，零依赖，手动 HTTP 调用、JSON 解析、SSE 流式处理。
+2. com.llm.langchain4j 包：基于 LangChain4j 框架的 Agent 实现，支持 Tool Calling、Memory、RAG、MCP。
+
+两套实现共享相同的工具设计理念：使用双栈算法实现表达式计算器（CalculatorSkill），
+支持浮点数四则运算，处理大小写单位（k/K 表示千、m/M 表示百万）。
+
+## 项目构建与运行
+使用 Maven 构建，Java 17，主入口为 com.llm.langchain4j.LangChain4jAgentDemo。
+运行前需设置环境变量 DEEPSEEK_API_KEY。
+LLM 后端使用 DeepSeek API（https://api.deepseek.com），模型名称为 deepseek-chat。
+Embedding 模型使用 text-embedding-3-small，向量存储在 InMemoryEmbeddingStore 中。
+
+编译命令：mvn compile
+运行命令：mvn exec:java -Dexec.mainClass="com.llm.langchain4j.LangChain4jAgentDemo"
+
+## Agent 配置细节
+AgentConfig 是装配工厂，负责组装所有组件：
+- ChatLanguageModel：OpenAiChatModel，120 秒超时，最多 2 次重试
+- ChatMemoryProvider：MessageWindowChatMemory，默认保留最近 20 条消息
+- EmbeddingModel：OpenAiEmbeddingModel，60 秒超时
+- RAG 最大返回结果数：3 条
+- 知识库目录：knowledge（相对项目根目录）
+- MCP 默认启用，提供 get_weather 和 read_local_file 两个降级工具
+
+## Observer 可观测性
+AgentObserver 实现了 ChatModelListener，记录每次 LLM 调用的请求和响应。
+使用 TokenUsage 统计输入/输出 Token 消耗。
+支持 /trace 命令查看最近一次调用的详细信息。
+
+## RAG 管道实现
+KnowledgeBaseInitializer 负责文档摄取：
+- 使用 FileSystemDocumentLoader 加载 knowledge/ 目录下的 .txt 和 .md 文件
+- 使用 TextDocumentParser 解析文档
+- DocumentSplitters.recursive(500, 50) 进行递归分割（500 字符块，50 字符重叠）
+- EmbeddingStoreIngestor 自动向量化并存入 InMemoryEmbeddingStore
+
+RagRetriever 负责检索：
+- 接收查询文本，调用 EmbeddingModel.embed() 生成查询向量
+- 在 InMemoryEmbeddingStore 中执行向量相似度搜索
+- 返回格式化的检索结果，包含相似度分数和文本片段
+
+RagSkill 将 RAG 检索暴露为 @Tool，Agent 可自主决定何时调用 ragSearch。
+
+## InteractiveChat 交互命令
+终端支持以下内置命令：
+- /tools：查看所有已注册工具列表
+- /mcp：查看 MCP 连接状态
+- /rag：查看 RAG 知识库状态
+- /memory：查看当前对话记忆快照
+- /clear：清空对话记忆
+- /trace：查看最近 LLM 调用追踪
+- /bye：退出程序
+
+## MCP 降级模式
+当 MCP 原生连接不可用时（例如没有 MCP 服务端），系统自动使用降级工具：
+- get_weather：模拟天气查询，返回固定数据
+- read_local_file：模拟文件读取，返回示例内容
+这些降级工具通过 McpToolProvider 管理，确保 Agent 在 MCP 不可用时仍可正常工作。
+
+## 设计决策
+1. 选择 DeepSeek 而非 OpenAI 作为 LLM 后端：国内访问更稳定，性价比更高。
+2. 使用 InMemoryEmbeddingStore 而非外部向量数据库：适合 demo 和小规模知识库，零运维成本。
+3. 双客户端架构（原生 vs 框架）：便于理解 LLM 调用的底层原理，同时展示框架的生产力提升。
+4. 文件结构按功能分层（skill/memory/rag/mcp），职责清晰。

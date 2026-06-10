@@ -4,14 +4,14 @@ import com.llm.langchain4j.mcp.McpToolProvider;
 import com.llm.langchain4j.memory.AgentMemoryProvider;
 import com.llm.langchain4j.rag.KnowledgeBaseInitializer;
 import com.llm.langchain4j.rag.RagRetriever;
-import com.llm.langchain4j.skill.CalculatorSkill;
-import com.llm.langchain4j.skill.RagSkill;
-import com.llm.langchain4j.skill.SearchSkill;
-import com.llm.langchain4j.skill.TimeQuerySkill;
+import com.llm.langchain4j.tool.CalculatorTool;
+import com.llm.langchain4j.tool.RagTool;
+import com.llm.langchain4j.tool.SearchTool;
+import com.llm.langchain4j.tool.TimeQueryTool;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.model.embedding.onnx.bgesmallzhv15q.BgeSmallZhV15QuantizedEmbeddingModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
 import dev.langchain4j.service.AiServices;
 
 import java.time.Duration;
@@ -80,14 +80,9 @@ public class AgentConfig {
 
         // 4. RAG
         try {
-            EmbeddingModel embeddingModel = OpenAiEmbeddingModel.builder()
-                    .apiKey(apiKey)
-                    .baseUrl(baseUrl)
-                    .modelName(embeddingModelName)
-                    .timeout(Duration.ofSeconds(60))
-                    .build();
+            EmbeddingModel embeddingModel = new BgeSmallZhV15QuantizedEmbeddingModel();
             ragRetriever = new RagRetriever(embeddingModel, maxRagResults);
-            knowledgeBaseInitializer = new KnowledgeBaseInitializer(knowledgeDir, ragRetriever);
+            knowledgeBaseInitializer = new KnowledgeBaseInitializer(knowledgeDir, ragRetriever, embeddingModel);
             int docCount = knowledgeBaseInitializer.initialize();
             System.out.println("[Config] RAG: 已初始化, 加载 " + docCount + " 个文档");
         } catch (Exception e) {
@@ -98,12 +93,12 @@ public class AgentConfig {
 
         // 5. Tools
         List<Object> allTools = new ArrayList<>();
-        allTools.add(new CalculatorSkill());
-        allTools.add(new SearchSkill());
-        allTools.add(new TimeQuerySkill());
+        allTools.add(new CalculatorTool());
+        allTools.add(new SearchTool());
+        allTools.add(new TimeQueryTool());
 
         if (ragRetriever != null) {
-            allTools.add(new RagSkill(ragRetriever));
+            allTools.add(new RagTool(ragRetriever));
         }
 
         // 6. MCP

@@ -16,7 +16,8 @@
 /Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/memory/AgentMemoryProvider.java
 /Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/rag/KnowledgeBaseInitializer.java
 /Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/rag/RagRetriever.java
-/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/skill/CalculatorSkill.java
-/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/skill/RagSkill.java
-/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/skill/SearchSkill.java
-/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/skill/TimeQuerySkill.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/rag/RagTest.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/tool/CalculatorSkill.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/tool/RagSkill.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/tool/SearchSkill.java
+/Users/mmw/IdeaProjects/Full-Stack-Journey-AI/src/main/java/com/llm/langchain4j/tool/TimeQuerySkill.java
