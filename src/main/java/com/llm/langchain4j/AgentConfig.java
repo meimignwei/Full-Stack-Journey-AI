@@ -102,18 +102,28 @@ public class AgentConfig {
         }
 
         // 6. MCP
+        boolean mcpRealConnected = false;
         if (enableMcp) {
             mcpToolProvider = new McpToolProvider();
-            mcpToolProvider.connectDemoServer();
-            allTools.addAll(mcpToolProvider.getToolObjects());
+            mcpRealConnected = mcpToolProvider.connectDemoServer();
+            if (!mcpRealConnected) {
+                allTools.addAll(mcpToolProvider.getFallbackToolObjects());
+            }
         }
 
         // 7. Build Agent
-        agentService = AiServices.builder(AgentService.class)
+        var builder = AiServices.builder(AgentService.class)
                 .chatLanguageModel(chatModel)
                 .chatMemoryProvider(memoryProvider)
-                .tools(allTools.toArray(new Object[0]))
-                .build();
+                .tools(allTools.toArray(new Object[0]));
+
+        // Register MCP ToolProvider when connected to real MCP server
+        if (mcpRealConnected && mcpToolProvider.getToolProvider() != null) {
+            builder.toolProvider(mcpToolProvider.getToolProvider());
+            System.out.println("[Config] MCP ToolProvider 已注册");
+        }
+
+        agentService = builder.build();
 
         System.out.println("[Config] Agent 装配完成, 共 " + allTools.size() + " 个工具");
         System.out.println();

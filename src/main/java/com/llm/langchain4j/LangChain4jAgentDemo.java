@@ -115,8 +115,12 @@ public class LangChain4jAgentDemo {
             case "/mcp":
                 McpToolProvider ms = config.getMcpToolProvider();
                 if (ms != null) {
-                    System.out.println("MCP 状态: " + (ms.isConnected() ? "已连接(降级模式)" : "未连接"));
+                    String mode = ms.isRealMcp() ? "真实 MCP (open-meteo-mcp-lite)" : "降级模式";
+                    System.out.println("MCP 状态: " + (ms.isConnected() ? "已连接 - " + mode : "未连接"));
                     System.out.println("MCP 工具数: " + ms.getToolSpecifications().size());
+                    for (var t : ms.getToolSpecifications()) {
+                        System.out.println("  - " + t.name() + ": " + t.description());
+                    }
                 } else {
                     System.out.println("MCP 未启用");
                 }
