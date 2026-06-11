@@ -1,0 +1,17 @@
+spring:
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-plus
+
+agent:
+  max-memory-messages: 20
+  max-rag-results: 3
+  knowledge-dir: knowledge
+
+logging:
+  level:
+    com.llm.alibaba: INFO
+    org.springframework.ai.chat.client.advisor: INFO
