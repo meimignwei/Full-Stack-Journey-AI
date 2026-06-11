@@ -23,3 +23,16 @@
 /Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/langchain4j/tool/RagTool.java
 /Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/langchain4j/tool/SearchTool.java
 /Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/langchain4j/tool/TimeQueryTool.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/AgentObserver.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/AlibabaAgentBatchTest.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/AlibabaAgentConfig.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/AlibabaAgentDemo.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/AlibabaAgentService.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/TraceableAdvisor.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/mcp/McpIntegration.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/memory/AgentMemoryManager.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/rag/KnowledgeBaseInitializer.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/rag/RagRetriever.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/tool/CalculatorTool.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/tool/SearchTool.java
+/Users/mmw/IdeaProjects/gradual-evolution-agent/src/main/java/com/llm/springai/tool/TimeQueryTool.java
